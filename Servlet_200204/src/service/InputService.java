@@ -28,6 +28,8 @@ public class InputService {
 			inputResult = false;
 		}
 		
+		close(con);
+		
 		return inputResult;
 		
 		// Controller 클래스에서 insert가 성공하면 InsertSuccess.jsp

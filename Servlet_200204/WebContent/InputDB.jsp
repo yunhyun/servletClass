@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function select(){
+		location.href = "selectDB";
+	}
+</script>
 </head>
 <body>
 <h2>InputDB.jsp 파일</h2>
@@ -15,6 +20,12 @@ inputServer 라는 주소로 전송하고 콘솔에 전송받은 값을 출력�
 	두번째 입력 : <input type="text" name="data2">
 	<input type="submit" value="서버로 전송">
 </form>
+
+<h2>DB 내용 조회하기</h2>
+<a href="selectDB">DB 조회 링크</a>
+<button onclick="select()">DB 조회</button>
+
+
 </body>
 </html>
 

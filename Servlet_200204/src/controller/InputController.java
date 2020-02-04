@@ -40,6 +40,12 @@ public class InputController extends HttpServlet {
 		boolean inputResult;
 		inputResult = inputService.inputDB(data1, data2);
 		
+		if(inputResult) {
+			response.sendRedirect("InsertSuccess.jsp");
+		}else {
+			response.sendRedirect("InsertFail.jsp");
+		}
+		
 		// 페이지 전환 방식 
 		/*
 		 * 1. redirect 
