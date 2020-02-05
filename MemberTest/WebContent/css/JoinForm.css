@@ -1,0 +1,53 @@
+*{
+    margin:10px;
+    padding: 3px;
+    /* text-align: left; */
+    font-family: 'Jua', sans-serif;
+    /* font-family: 'Gugi', cursive; */
+    /* font-family: 'Do Hyeon', sans-serif; */
+}
+/* .items{
+    display: inline-block;
+    width: 130px;
+} */
+table, tr, td{
+    /* border: 1px palegreen solid; */
+    font-size: 13px;
+    border-collapse: collapse;
+    
+}
+table{
+    margin-left: auto;
+    margin-right: auto;
+    /* border: 10px black solid; */
+    /* width: 900px; */
+}
+input{
+    width: 200px;
+    border: 1px;
+    border-bottom: 0.5px rgb(167, 164, 164) solid;
+    font-size: 13px;
+}
+h2{
+    text-align: center;
+}
+.button{
+    background-color: white; 
+    color: black; 
+    border: 2px solid rgb(167, 164, 164);
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+.items{
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(167, 164, 164);
+}
