@@ -55,11 +55,6 @@ public class DAO {
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-//			if(rs.next()) {
-//				do {
-//					resultList.add(rs.getString("DATA1"));
-//				} while (rs.next());
-//			}
 			while(rs.next()) {
 				resultList.add(rs.getString("DATA1"));
 			}

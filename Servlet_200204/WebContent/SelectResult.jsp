@@ -15,8 +15,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 	<h2>SelectResult.jsp 파일</h2>
 	<h3>DB 조회 내용 출력</h3>
-	<c:forEach var="result111" items="${selectResult}">
-		${result111} <br>
+	<c:forEach var="result222" items="${selectResult11}">
+		${result222} <br>
 	</c:forEach>
 	
 
@@ -25,3 +25,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
 </body>
 </html>
+
+
+
+
+

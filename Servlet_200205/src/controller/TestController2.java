@@ -14,40 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 import service.SelectService;
 
 @WebServlet("/selectDB")
-public class SelectController extends HttpServlet {
+public class TestController2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelectController() {
+    public TestController2() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		/*
-		 * 처리 과정 
-		 * 	서비스 클래스의 selectDB 메소드 호출 ->
-		 *  DB 접속하고 -> DAO의 selectDB 메소드 호출 -> 
-		 *  DAO의 selectDB 메소드는 DB의 TEST 테이블의 모든 내용 조회 ->
-		 *  조회 내용을 서비스 클래스로 리턴 ->
-		 *  서비스 클래스는 컨트롤러로 조회내용을 리턴 ->
-		 *  컨트롤러에서 SelectResult.jsp로 데이터를 가지고 이동  
-		 */
 		
-		// 서비스 클래스의 selectDB 메소드 호출하고
-		// 호출 결과를 List에 담음. 
 		SelectService selService = new SelectService();
 		
-		List<String> resultList = new ArrayList<String>();
+		List<String> nameList = new ArrayList<String>();
+		nameList = selService.selectDB();
 		
-		resultList = selService.selectDB();
+		request.setAttribute("nameResult", nameList);
 		
-		// resultList를 request영역의 parameter에 담아서 SelectResult.jsp로 이동
-		request.setAttribute("selectResult11", resultList);
-		
-		// dispatch 방식으로 이동 
 		RequestDispatcher dispatch = 
-				request.getRequestDispatcher("SelectResult.jsp");
+				request.getRequestDispatcher("NameResult.jsp");
 		dispatch.forward(request, response);
+		
 	}
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,7 +46,3 @@ public class SelectController extends HttpServlet {
 	}
 
 }
-
-
-
-
