@@ -1,6 +1,9 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static db.JdbcUtil.*;
 import dto.MemberDTO;
 
@@ -30,6 +33,7 @@ public class MemberDAO {
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPassword());
 			pstmt.setString(3, member.getName());
+//			pstmt.setDate(4, member.getBirth());
 			pstmt.setString(4, member.getBirth());
 			pstmt.setString(5, member.getGender());
 			pstmt.setString(6, member.getEmail());
@@ -41,6 +45,81 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public String memberLogin(String id, String password) {
+		String sql = "SELECT ID FROM MEMBER WHERE ID=? AND PASSWORD=?";
+		String loginId = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				loginId = rs.getString("ID");
+			} else {
+				loginId = null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return loginId;
+	}
+
+	public List<MemberDTO> memberList() {
+		String sql = "SELECT * FROM MEMBER";
+		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
+		MemberDTO member = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				member = new MemberDTO();
+				member.setId(rs.getString("ID"));
+				member.setPassword(rs.getString("PASSWORD"));
+				member.setName(rs.getString("NAME"));
+//				member.setBirth(rs.getDate("BIRTH"));
+				member.setBirth(rs.getString("BIRTH"));
+				member.setGender(rs.getString("GENDER"));
+				member.setEmail(rs.getString("EMAIL"));
+				memberList.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return memberList;
+	}
+
+	public MemberDTO memberView(String id) {
+		String sql = "SELECT * FROM MEMBER WHERE ID=?";
+		MemberDTO viewMember = new MemberDTO();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				viewMember.setId(rs.getString("ID"));
+				viewMember.setPassword(rs.getString("PASSWORD"));
+				viewMember.setName(rs.getString("NAME"));
+				viewMember.setBirth(rs.getString("BIRTH"));
+				viewMember.setGender(rs.getString("GENDER"));
+				viewMember.setEmail(rs.getString("EMAIL"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return viewMember;
 	}
 }
 

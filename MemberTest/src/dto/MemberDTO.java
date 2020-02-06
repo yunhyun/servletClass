@@ -1,5 +1,7 @@
 package dto;
 
+import java.sql.Date;
+
 // DTO : Data Transfer Object 
 // VO : Value Object
 // Bean

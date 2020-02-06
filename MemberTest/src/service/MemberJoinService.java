@@ -21,6 +21,8 @@ public class MemberJoinService {
 		} else {
 			rollback(con);
 		}
+		
+		close(con);
 		return result;
 	}
 
