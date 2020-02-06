@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.MemberDTO;
+import service.MemberJoinService;
+
 @WebServlet("/memberJoin")
 public class MemberJoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -17,32 +20,34 @@ public class MemberJoinController extends HttpServlet {
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String id, pwd, name, birth, emailId, emailDomain, postcode, address, detailAddress, phone;
+		String id, password, name, birth, gender, email;
 		id = request.getParameter("id");
-		pwd = request.getParameter("pwd");
+		password = request.getParameter("password");
 		name = request.getParameter("name");
 		birth = request.getParameter("birth");
-		emailId = request.getParameter("emailId");
-		emailDomain = request.getParameter("emailDomain");
-		postcode = request.getParameter("postcode");
-		address = request.getParameter("address");
-		detailAddress = request.getParameter("detailAddress");
-		phone = request.getParameter("phone");
+		gender = request.getParameter("gender");
+		email = request.getParameter("email");
 		
-		System.out.println(id);
-		System.out.println(pwd);
-		System.out.println(name);
-		System.out.println(birth);
-		System.out.println(emailId);
-		System.out.println(emailDomain);
-		System.out.println(postcode);
-		System.out.println(address);
-		System.out.println(detailAddress);
-		System.out.println(phone);
+		MemberDTO member = new MemberDTO();
+		member.setId(id);
+		member.setPassword(password);
+		member.setName(name);
+		member.setBirth(birth);
+		member.setGender(gender);
+		member.setEmail(email);
+		
+		MemberJoinService memberJoinService = new MemberJoinService();
+		//memberJoinService.memberJoin(id, password, name, birth, gender, email);
+		int result = memberJoinService.memberJoin(member);
 		
 		
 		
-		
+//		System.out.println(id);
+//		System.out.println(password);
+//		System.out.println(name);
+//		System.out.println(birth);
+//		System.out.println(gender);
+//		System.out.println(email);
 		
 		
 	}

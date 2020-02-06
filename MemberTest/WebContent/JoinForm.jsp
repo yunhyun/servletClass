@@ -10,7 +10,7 @@
 	<h2>JoinForm.jsp 파일</h2>
 
 <h2>회원가입</h2>
-	<form name="joinform" action="memberJoin" method="post">
+	<form action="memberJoin" method="post">
 		아이디 : <input type="text" name="id" id = "id" ><br>
 		비밀번호 : <input type="password" name="password" id = "password"><br>
 		이름 : <input type="text" name="name" id = "name"><br>
@@ -24,3 +24,7 @@
 	</form>
 </body>
 </html>
+
+
+
+
