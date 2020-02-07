@@ -2,23 +2,23 @@ package service;
 
 import static db.JdbcUtil.*;
 
-import java.sql.Connection;
+import java.sql.*;
 
 import dao.MemberDAO;
 import dto.MemberDTO;
 
-public class MemberViewService {
+public class MemberModifyService {
 
-	public MemberDTO memberView(String id) {
+	public MemberDTO memberModify(String id) {
 		MemberDAO dao = MemberDAO.getInstance();
 		Connection con = getConnection();
 		dao.setConnection(con);	
 		
-		MemberDTO memberView = dao.memberView(id);
+		MemberDTO memberModify = dao.memberView(id);
 		
 		close(con);
-		return memberView;
 		
+		return memberModify;
 	}
 
 }

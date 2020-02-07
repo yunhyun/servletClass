@@ -1,8 +1,7 @@
 package dao;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static db.JdbcUtil.*;
 import dto.MemberDTO;
@@ -99,27 +98,28 @@ public class MemberDAO {
 
 	public MemberDTO memberView(String id) {
 		String sql = "SELECT * FROM MEMBER WHERE ID=?";
-		MemberDTO viewMember = new MemberDTO();
+		MemberDTO memberView = new MemberDTO();
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				viewMember.setId(rs.getString("ID"));
-				viewMember.setPassword(rs.getString("PASSWORD"));
-				viewMember.setName(rs.getString("NAME"));
-				viewMember.setBirth(rs.getString("BIRTH"));
-				viewMember.setGender(rs.getString("GENDER"));
-				viewMember.setEmail(rs.getString("EMAIL"));
+				memberView.setId(rs.getString("ID"));
+				memberView.setPassword(rs.getString("PASSWORD"));
+				memberView.setName(rs.getString("NAME"));
+				memberView.setBirth(rs.getString("BIRTH"));
+				memberView.setGender(rs.getString("GENDER"));
+				memberView.setEmail(rs.getString("EMAIL"));
 			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
-		
-		
-		return viewMember;
+		return memberView;
 	}
 }
 

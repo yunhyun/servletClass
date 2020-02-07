@@ -8,37 +8,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.MemberDTO;
-import service.MemberViewService;
+import service.MemberModifyService;
 
-@WebServlet("/memberView")
-public class MemberViewController extends HttpServlet {
+@WebServlet("/memberModify")
+public class MemberModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberViewController() {
+    public MemberModifyController() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String id = request.getParameter("id");
-		System.out.println(id);
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("loginId");
 		
-		MemberViewService memberViewService = new MemberViewService();
+		MemberModifyService memberModifyService = new MemberModifyService();
 		
-		MemberDTO memberView = new MemberDTO();
+		MemberDTO memberModify = memberModifyService.memberModify(id);
 		
-		memberView = memberViewService.memberView(id);
+		request.setAttribute("memberModify", memberModify);
+		RequestDispatcher dispatcher = 
+    			request.getRequestDispatcher("MemberModify.jsp");
+    	dispatcher.forward(request, response);
 		
-		if(memberView!=null) {
-			request.setAttribute("memberView", memberView);
-			RequestDispatcher dispatcher = 
-	    			request.getRequestDispatcher("MemberView.jsp");
-	    	dispatcher.forward(request, response);
-		}
-
 	}
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
