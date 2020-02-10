@@ -70,7 +70,7 @@ public class MemberDAO {
 	}
 
 	public List<MemberDTO> memberList() {
-		String sql = "SELECT * FROM MEMBER";
+		String sql = "SELECT * FROM MEMBER ORDER BY NAME ASC";
 		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
 		MemberDTO member = null;
 		try {
@@ -120,6 +120,42 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return memberView;
+	}
+
+	public int memberModify(MemberDTO member) {
+		String sql = "UPDATE MEMBER SET NAME=?, EMAIL=? WHERE ID=?";
+		int modifyResult = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getEmail());
+			pstmt.setString(3, member.getId());
+			modifyResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return modifyResult;
+	}
+
+	public int memberDelete(String deleteId) {
+		String sql = "DELETE FROM MEMBER WHERE ID=?";
+		int deleteResult = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, deleteId);
+			deleteResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return deleteResult;
 	}
 }
 

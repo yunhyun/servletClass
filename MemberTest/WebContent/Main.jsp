@@ -16,8 +16,20 @@
 </head>
 <body>
 	<h2>Main.jsp 파일</h2>
+	<img src="images/Hydrangeas.jpg">
 	
 	<button onclick="memberJoin()">회원가입</button>
 	<button onclick="memberLogin()">로그인</button>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

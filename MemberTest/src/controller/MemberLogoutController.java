@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,35 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dto.MemberDTO;
-import service.MemberModifyService;
-import service.MemberViewService;
-
-@WebServlet("/memberModify")
-public class MemberModifyController extends HttpServlet {
+@WebServlet("/memberLogout")
+public class MemberLogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberModifyController() {
+    public MemberLogoutController() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		// 세션 삭제 
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("loginId");
+		session.invalidate();
 		
-		MemberModifyService memberModifyService = new MemberModifyService();
-		
-		MemberDTO memberModify = memberModifyService.memberModify(id);
-		
-//		MemberViewService memberViewService = new MemberViewService();
-//		MemberDTO memberModify = memberViewService.memberView(id);
-		
-		request.setAttribute("memberModify", memberModify);
-		RequestDispatcher dispatcher = 
-    			request.getRequestDispatcher("MemberModify.jsp");
-    	dispatcher.forward(request, response);
+		response.sendRedirect("LoginForm.jsp");
 		
 	}
 	

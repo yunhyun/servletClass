@@ -8,7 +8,9 @@
 	<script>
 		function memberModify(){
 			var passwordConfirm = document.getElementById("password").value;
-			var password = ${memberModify.password};
+			var password = '${memberModify.password}';
+			console.log(passwordConfirm);
+			console.log(password);
 			if(password==passwordConfirm){
 				modifyForm.submit();
 			} else{
@@ -27,7 +29,7 @@
 <h2>회원가입</h2>
 	<form action="memberModifyProcess" method="post" name="modifyForm">
 		아이디 : <input type="text" name="id" id = "id" value="${memberModify.id}" readonly><br>
-		비밀번호 : <input type="password" name="password" id = "password"><br>
+		확인용 비밀번호 : <input type="password" name="password" id = "password"><br>
 		이름 : <input type="text" name="name" id = "name" value="${memberModify.name}"><br>
 		이메일 : <input type="email" name="email" id = "email" value="${memberModify.email}"><br>
 		
@@ -36,6 +38,12 @@
 	<button onclick="goMain()">메인</button>
 </body>
 </html>
+
+
+
+
+
+
 
 
 

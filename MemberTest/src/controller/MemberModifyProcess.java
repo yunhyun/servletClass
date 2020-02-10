@@ -1,44 +1,45 @@
 package controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dto.MemberDTO;
-import service.MemberModifyService;
-import service.MemberViewService;
+import service.MemberModifyProcessService;
 
-@WebServlet("/memberModify")
-public class MemberModifyController extends HttpServlet {
+@WebServlet("/memberModifyProcess")
+public class MemberModifyProcess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberModifyController() {
+    public MemberModifyProcess() {
         super();
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("loginId");
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
 		
-		MemberModifyService memberModifyService = new MemberModifyService();
+		MemberDTO member = new MemberDTO();
 		
-		MemberDTO memberModify = memberModifyService.memberModify(id);
+		member.setId(id);
+		member.setName(name);
+		member.setEmail(email);
 		
-//		MemberViewService memberViewService = new MemberViewService();
-//		MemberDTO memberModify = memberViewService.memberView(id);
+		MemberModifyProcessService memberModifyProcessService = new MemberModifyProcessService();
 		
-		request.setAttribute("memberModify", memberModify);
-		RequestDispatcher dispatcher = 
-    			request.getRequestDispatcher("MemberModify.jsp");
-    	dispatcher.forward(request, response);
+		int modifyResult = memberModifyProcessService.memberModify(member);
+		
+		if(modifyResult > 0) {
+			response.sendRedirect("MemberMain.jsp");
+		} else {
+			response.sendRedirect("ModifyFail.jsp");
+		}
 		
 	}
 	
@@ -51,3 +52,13 @@ public class MemberModifyController extends HttpServlet {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
