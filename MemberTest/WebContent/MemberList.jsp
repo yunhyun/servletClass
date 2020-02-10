@@ -24,7 +24,8 @@
 			<td>${member.birth}</td>
 			<td>${member.gender}</td>
 			<td>${member.email}</td> 
-			<td><a href="memberView?id=${member.id}">조회</a></td>
+			<td><a href="memberView?id=${member.id}">조회</a>
+			<button onclick="window.open('memberView?id=${member.id}','viewss','width=1000,height=500,location=no,status=no,scrollbars=yes')">조회(새창)</button></td>
 			<td><a href="memberDelete?id=${member.id}">삭제</a></td>
 			</tr> 
 		<br>
