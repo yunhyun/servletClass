@@ -94,4 +94,94 @@ public class BoardDAO {
 
 		return boardList;
 	}
+
+	public List<BoardDTO> boardList() {
+		System.out.println("DAO boardList 메소드 호출");
+		String sql = "SELECT * FROM BOARD";
+		List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+		BoardDTO boardDTO = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				boardDTO = new BoardDTO();
+				boardDTO.setbNumber(rs.getInt("BNUMBER"));
+				boardDTO.setbWriter(rs.getString("BWRITER"));
+				boardDTO.setbPassword(rs.getString("BPASSWORD"));
+				boardDTO.setbTitle(rs.getString("BTITLE"));
+				boardDTO.setbContents(rs.getString("BCONTENTS"));
+				boardDTO.setbDate(rs.getDate("BDATE"));
+				boardDTO.setbHits(rs.getInt("BHITS"));
+				boardList.add(boardDTO);
+			}
+			
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("boardList 오류!!" + e);
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return boardList;
+	}
+
+	public int boardHits(int bNumber) {
+		String sql = "UPDATE BOARD SET BHITS=BHITS+1 WHERE BNUMBER=?";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public BoardDTO boardView(int bNumber) {
+		String sql = "SELECT * FROM BOARD WHERE BNUMBER=?";
+		BoardDTO boardDTO = new BoardDTO();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardDTO.setbNumber(rs.getInt("BNUMBER"));
+				boardDTO.setbWriter(rs.getString("BWRITER"));
+				boardDTO.setbPassword(rs.getString("BPASSWORD"));
+				boardDTO.setbTitle(rs.getString("BTITLE"));
+				boardDTO.setbContents(rs.getString("BCONTENTS"));
+				boardDTO.setbDate(rs.getDate("BDATE"));
+				boardDTO.setbHits(rs.getInt("BHITS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return boardDTO;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
