@@ -162,6 +162,7 @@ public class BoardDAO {
 				boardDTO.setbContents(rs.getString("BCONTENTS"));
 				boardDTO.setbDate(rs.getDate("BDATE"));
 				boardDTO.setbHits(rs.getInt("BHITS"));
+				boardDTO.setbFile(rs.getString("BFILE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -170,6 +171,60 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		return boardDTO;
+	}
+
+	public int boardModify(BoardDTO boardModify) {
+		String sql = "UPDATE BOARD SET BTITLE=?, BCONTENTS=? WHERE BNUMBER=?";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, boardModify.getbTitle());
+			pstmt.setString(2, boardModify.getbContents());
+			pstmt.setInt(3, boardModify.getbNumber());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int boardDelete(int bNumber) {
+		String sql = "DELETE FROM BOARD WHERE BNUMBER=?";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int boardWriteFile(BoardDTO boardDTO) {
+		String sql = "INSERT INTO BOARD VALUES(BOARDNUM_SEQ.NEXTVAL, ?,?,?,?,SYSDATE, 0, ?)";
+		int writeResult = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, boardDTO.getbWriter());
+			pstmt.setString(2, boardDTO.getbPassword());
+			pstmt.setString(3, boardDTO.getbTitle());
+			pstmt.setString(4, boardDTO.getbContents());
+			pstmt.setString(5, boardDTO.getbFile());
+			writeResult = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return writeResult;
 	}
 }
 

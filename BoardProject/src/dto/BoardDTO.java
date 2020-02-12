@@ -12,6 +12,8 @@ public class BoardDTO {
 	private Date bDate;
 	private int bHits;
 	
+	private String bFile;
+	
 	public int getbNumber() {
 		return bNumber;
 	}
@@ -53,6 +55,12 @@ public class BoardDTO {
 	}
 	public void setbHits(int bHits) {
 		this.bHits = bHits;
+	}
+	public String getbFile() {
+		return bFile;
+	}
+	public void setbFile(String bFile) {
+		this.bFile = bFile;
 	}
 	
 		

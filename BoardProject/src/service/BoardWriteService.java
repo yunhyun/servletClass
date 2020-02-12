@@ -25,4 +25,21 @@ public class BoardWriteService {
 		return writeResult;
 	}
 
+	public int boardWriteFile(BoardDTO boardDTO) {
+		BoardDAO dao = BoardDAO.getInstance();
+		Connection con = getConnection();
+		dao.setConnection(con);
+		
+		int writeResult = dao.boardWriteFile(boardDTO); 
+		
+		if(writeResult > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		return writeResult;
+	}
+
 }
