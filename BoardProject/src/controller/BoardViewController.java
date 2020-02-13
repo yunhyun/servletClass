@@ -29,12 +29,15 @@ public class BoardViewController extends HttpServlet {
 		
 		int bNumber = Integer.parseInt(request.getParameter("bNumber"));
 		
+		int page = Integer.parseInt(request.getParameter("page"));
+		
 		BoardViewService boardViewService = new BoardViewService();
 		
 		BoardDTO boardView = boardViewService.boardView(bNumber);
 		
 		if(boardView != null) {
 			request.setAttribute("boardView", boardView);
+			request.setAttribute("page", page);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("BoardView.jsp");
 			dispatcher.forward(request, response);
 		} else {

@@ -43,6 +43,7 @@
 	</table>
 	
 	<button onclick="location.href='boardList'">목록</button>
+	<button onclick="location.href='boardListPaging?page=${page}'">페이징목록</button>
 	<button onclick="location.href='boardModify?bNumber=${boardView.bNumber}'">수정</button>
 	<button onclick="location.href='boardDelete?bNumber=${boardView.bNumber}'">삭제</button>
 	<button onclick="boardDelete()">삭제(비번)</button>

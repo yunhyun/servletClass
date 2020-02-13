@@ -22,7 +22,7 @@
 				<td>${board.bNumber}</td>
 				<td>${board.bWriter}</td>
 				<td><a
-					href="boardView?boardNumber=${board.bNumber}&page=${paging.page}">${board.bTitle}</a></td>
+					href="boardView?bNumber=${board.bNumber}&page=${paging.page}">${board.bTitle}</a></td>
 				<td>${board.bDate}</td>
 				<td>${board.bHits}</td>
 			</tr>
@@ -35,16 +35,17 @@
 	<!-- 페이징 처리 -->
 	<c:if test="${paging.page<=1}">
 	[이전]&nbsp;
-</c:if>
+	</c:if>
+	
 	<c:if test="${paging.page>1}">
 		<a href="boardListPaging?page=${paging.page-1}">[이전]</a>&nbsp;
-</c:if>
-	<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i"
-		step="1">
+	</c:if>
+	
+	<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
 		<c:choose>
 			<c:when test="${i eq paging.page}">
 			${i}
-		</c:when>
+			</c:when>
 			<c:otherwise>
 				<a href="boardListPaging?page=${i}">${i}</a>
 			</c:otherwise>
@@ -52,10 +53,13 @@
 	</c:forEach>
 
 	<c:if test="${paging.page>=paging.maxPage}">
-[다음]
-</c:if>
+		[다음]
+	</c:if>
+	
 	<c:if test="${paging.page<paging.maxPage}">
 		<a href="boardListPaging?page=${paging.page+1}">[다음]</a>
 	</c:if>
+
+
 </body>
 </html>

@@ -42,7 +42,7 @@ public class BoardDAO {
 		}
 		return writeResult;
 	}
-
+	
 	public int listCount() {
 		int listCount = 0;
 
@@ -66,8 +66,9 @@ public class BoardDAO {
 	public List<BoardDTO> getBoardList(int startRow, int endRow) {
 		System.out.println("startRow" + startRow);
 		System.out.println("endRow" + endRow);
-		String sql = "SELECT * FROM BOARDLIST WHERE BOARDLIST.RN BETWEEN ? AND ?";
+		String sql = "SELECT * FROM BOARDLIST WHERE RN BETWEEN ? AND ?";
 		List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+		
 		BoardDTO boardDTO = null;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -83,6 +84,8 @@ public class BoardDAO {
 					boardDTO.setbContents(rs.getString("BCONTENTS"));
 					boardDTO.setbDate(rs.getDate("BDATE"));
 					boardDTO.setbHits(rs.getInt("BHITS"));
+					boardDTO.setbFile(rs.getString("BFILE"));
+					
 					boardList.add(boardDTO);
 				}
 		} catch (SQLException e) {
